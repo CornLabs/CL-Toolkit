@@ -52,7 +52,6 @@ CL.Framework = {
 		return true;
 	},
 	init: function(callback){
-		console.log(callback)
 		callback = typeof(callback) == "undefined" ? CL.Framework.nullFunc : callback
 		this.grabModules(0, callback)
 	},

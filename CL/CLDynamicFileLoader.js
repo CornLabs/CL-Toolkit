@@ -72,5 +72,5 @@ CL.DynamicFileLoader = {
     hasLibs: function() {
         return CL.DynamicFileLoader.qh;
     },
-	nullFunc: function() { console.log("Crap")}
+	nullFunc: function() {}
 }
