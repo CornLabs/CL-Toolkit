@@ -15,15 +15,15 @@ CL.Framework = {
 	addCustomModule: function(name, location) {
 		this.customModules[name] = location;
 	},
-	grabModules: function(init) {
-		if (typeof(init) == "undefined") { this.loadLoader(); return true; }
+	grabModules: function(init, callback) {
+		if (!init) { this.loadLoader(callback); return true; }
 		for (m in this.bundledModules) {
 			m = this.bundledModules[m]
 			if (m != "dynloader")	this.modules.dynloader.addLib(m, this.modulesDir + this.bundledModulePaths[m]);
 		}
-		this.modules.dynloader.processQueue(CL.Framework.loadModules)
+		this.modules.dynloader.processQueue(CL.Framework.loadModules, callback)
 	},
-	loadModules: function()	{		
+	loadModules: function(callback)	{		
 		for(m in CL.Framework.bundledModules) {
 			m = CL.Framework.bundledModules[m]
 			if (m != "dynloader")	{
@@ -33,11 +33,12 @@ CL.Framework = {
 				CL.Framework.loadModule(m, name)
 			}
 		}
+		callback()
 	},
 	loadModule: function(name, module)	{
 		this.modules[name] = CL[module];
 	},
-	loadLoader: function()	{
+	loadLoader: function(callback)	{
 		script = document.createElement("script");
 		script.src = this.modulesDir + this.bundledModulePaths.dynloader;
 		script.id = "dynloader";
@@ -45,12 +46,15 @@ CL.Framework = {
 		script.onload = function() { 
 			CL.Framework.loadModule("dynloader", "DynamicFileLoader");
 			document.head.removeChild(this)
-			CL.Framework.grabModules(true); 
+			CL.Framework.grabModules(true, callback); 
 		}
 		document.head.appendChild(script)
 		return true;
 	},
-	init: function(){
-		this.grabModules()
-	}
+	init: function(callback){
+		console.log(callback)
+		callback = typeof(callback) == "undefined" ? CL.Framework.nullFunc : callback
+		this.grabModules(0, callback)
+	},
+	nullFunc: function() {}
 }

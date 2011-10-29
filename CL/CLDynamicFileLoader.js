@@ -31,11 +31,11 @@ CL.DynamicFileLoader = {
         CL.DynamicFileLoader.processQueue();
         CL.DynamicFileLoader.loadCompleted();
     },
-    processQueue: function(callback)   {
+    processQueue: function(callback, fcb)   {
         if(!CL.DynamicFileLoader.working && CL.DynamicFileLoader.hasLibs()){
             CL.DynamicFileLoader.working = 1;
 			f = CL.DynamicFileLoader.qh == 1 ? callback : CL.DynamicFileLoader.nullFunc;	
-			CL.DynamicFileLoader.cases[CL.DynamicFileLoader.queue[0].type.toLowerCase()](f)
+			CL.DynamicFileLoader.cases[CL.DynamicFileLoader.queue[0].type.toLowerCase()](f, fcb)
             CL.DynamicFileLoader.head.appendChild(script);
             CL.DynamicFileLoader.queue.splice(0, 1); 
 			CL.DynamicFileLoader.qh--;
@@ -43,7 +43,7 @@ CL.DynamicFileLoader = {
         if (CL.DynamicFileLoader.hasLibs()) setTimeout("CL.DynamicFileLoader.processQueue()", 50);
     },
 	cases: {
-		css: function( term ){        
+		css: function( term, fcb ){        
 				name = typeof(name) != "undefined" ? name : CL.DynamicFileLoader.queue[0].name;
 				url = typeof(url) != "undefined" ? url : CL.DynamicFileLoader.queue[0].src;
 	            script = document.createElement("link");
@@ -53,16 +53,16 @@ CL.DynamicFileLoader = {
 	            script.rel = "stylesheet";
 	            script.href = ((url.indexOf("http") < 0) ? "http://" + window.location.hostname : "") + url;
 	            CL.DynamicFileLoader.working = 0;
-				f()
+				f(fcb)
 	            return script;
 	    },
-	    js: function( term ){        
+	    js: function( term, fcb ){        
 	            script = document.createElement("script");
 	            script.type = 'text/javascript';
 	            script.onload = function()  {
 	                CL.DynamicFileLoader.working = 0;
 	                CL.DynamicFileLoader.head.removeChild(this);
-					f()
+					f(fcb)
 	            }
 	            script.id = CL.DynamicFileLoader.queue[0].name;
 	            script.src = ((CL.DynamicFileLoader.queue[0].src.indexOf("http") < 0) ? "http://" + window.location.hostname : "") + CL.DynamicFileLoader.queue[0].src;
