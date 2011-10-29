@@ -12,16 +12,17 @@ CL.Framework = {
 	customModules: [],
 	version: "0.0.1",
 	modulesDir: "/CL/",
+	afterInit: null,
 	addCustomModule: function(name, location) {
 		this.customModules[name] = location;
 	},
-	grabModules: function(init, callback) {
-		if (!init) { this.loadLoader(callback); return true; }
+	grabModules: function(init) {
+		if (!init) { this.loadLoader(); return true; }
 		for (m in this.bundledModules) {
 			m = this.bundledModules[m]
 			if (m != "dynloader")	this.modules.dynloader.addLib(m, this.modulesDir + this.bundledModulePaths[m]);
 		}
-		this.modules.dynloader.processQueue(CL.Framework.loadModules, callback)
+		this.modules.dynloader.processQueue(CL.Framework.loadModules)
 	},
 	loadModules: function(callback)	{		
 		for(m in CL.Framework.bundledModules) {
@@ -33,7 +34,7 @@ CL.Framework = {
 				CL.Framework.loadModule(m, name)
 			}
 		}
-		callback()
+		CL.Framework.afterInit()
 	},
 	loadModule: function(name, module)	{
 		this.modules[name] = CL[module];
@@ -53,7 +54,8 @@ CL.Framework = {
 	},
 	init: function(callback){
 		callback = typeof(callback) == "undefined" ? CL.Framework.nullFunc : callback
-		this.grabModules(0, callback)
+		CL.Framework.afterInit = callback;
+		this.grabModules()
 	},
 	nullFunc: function() {}
 }
