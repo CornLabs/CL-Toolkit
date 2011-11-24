@@ -40,7 +40,9 @@ CL.DynamicFileLoader = {
 	            script.id = name;
 	            script.media = name;
 	            script.rel = "stylesheet";
-	            script.href = ((url.indexOf("http") < 0) ? "http://" + window.location.hostname : "") + url;
+                if(typeof(CL.Framework.runningNativeMode) == "undefined")   baseURL = "";        
+                else baseURL = ((url.indexOf("http") < 0) ? "http://" + window.location.hostname : "");
+	            script.href = baseURL + url;
 	            CL.DynamicFileLoader.working = 0;
 	            return script;
 	    },
@@ -52,7 +54,9 @@ CL.DynamicFileLoader = {
 					term()
 	            }
 	            script.id = CL.DynamicFileLoader.queue[0].name;
-	            script.src = ((CL.DynamicFileLoader.queue[0].src.indexOf("http") < 0) ? "http://" + window.location.hostname : "") + CL.DynamicFileLoader.queue[0].src;
+                if(typeof(CL.Framework.runningNativeMode) == "undefined")   baseURL = "";        
+                else baseURL = ((CL.DynamicFileLoader.queue[0].src.indexOf("http") < 0) ? "http://" + window.location.hostname : "");
+	            script.src = baseURL + CL.DynamicFileLoader.queue[0].src;
 	            return script;
 	    },
 	},

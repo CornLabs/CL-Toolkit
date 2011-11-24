@@ -40,6 +40,7 @@ CL.ShaderLoader = {
             shader = shaders[shader]
             elem = document.createElement('script')
             url = shader.url;
+            alert("shader.url")
             elem.id = url.substr(url.lastIndexOf("/") + 1)
             elem.innerHTML = shader.text;
             elem.type = shader.type
