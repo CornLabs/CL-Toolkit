@@ -22,7 +22,7 @@ CL.Framework = {
 		if (!init) { this.loadLoader(); return true; }
 		for (m in this.bundledModules) {
 			m = this.bundledModules[m]
-			if (m != "dynloader")	this.modules.dynloader.addLib(m, this.modulesDir + this.bundledModulePaths[m]);
+			if (m != "dynloader")	this.modules.dynloader.addLib({"name": m, "location": this.modulesDir + this.bundledModulePaths[m]});
 		}
 		this.modules.dynloader.processQueue(CL.Framework.loadModules)
 	},
@@ -40,6 +40,7 @@ CL.Framework = {
 	},
 	loadModule: function(name, module)	{
 		this.modules[name] = CL[module];
+		if (typeof(CL[module].onModuleLoad) == "function") 	CL[module].onModuleLoad()
 	},
 	loadLoader: function(callback)	{
 		script = document.createElement("script");

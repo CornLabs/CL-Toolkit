@@ -1,9 +1,10 @@
 CL.DynamicFileLoader = {
-	addLib: function(name, location)	{
+	addLib: function(json)	{
 		CL.DynamicFileLoader.queue[CL.DynamicFileLoader.qh] = {
-			type: location.substr(location.lastIndexOf(".") + 1),
-			src: location,
-			name: name
+			type: json.location.substr(json.location.lastIndexOf(".") + 1),
+			src: json.location,
+			name: json.name,
+			allData: json
 		}
 		CL.DynamicFileLoader.qh++;
 	},
@@ -12,7 +13,7 @@ CL.DynamicFileLoader = {
     queue: [],
 	afterLoad: null,
     processQueue: function(callback)   {
-		callback = typeof(callback) == "function" ? callback: CL.Framework.nullFunction;
+		callback = typeof(callback) == "function" ? callback: CL.DynamicFileLoader.nullFunc;
 		this.afterLoad = callback;
 		this.loadQueue();
     },
@@ -35,10 +36,11 @@ CL.DynamicFileLoader = {
 		css: function( term ){        
 				name = CL.DynamicFileLoader.queue[0].name;
 				url = CL.DynamicFileLoader.queue[0].src;
+				media = CL.DynamicFileLoader.queue[0].allData.media;
 	            script = document.createElement("link");
 	            script.type = 'text/css';
 	            script.id = name;
-	            script.media = name;
+	            script.media = media;
 	            script.rel = "stylesheet";
                 if(typeof(CL.Framework.runningNativeMode) == "undefined")   baseURL = "";        
                 else baseURL = ((url.indexOf("http") < 0) ? "http://" + window.location.hostname : "");
