@@ -3,12 +3,14 @@ CL.Framework = {
 	bundledModules: [
 		"dynloader",
 		"shaderloader",
-		"lightBox"
+		"utils",
+		"lightBox",
 	],
 	bundledModulePaths: {
 		dynloader: "CLDynamicFileLoader.js",
 		shaderloader: "CLShaderLoader.js",
-		lightBox: "CLLightBox.js"
+		utils: "CLUtils.js",
+		lightBox: "CLLightBox.js",
 	},
 	modules: {},
 	customModules: [],

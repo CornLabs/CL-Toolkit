@@ -4,6 +4,35 @@
 	left: 0;
 	right: 0;
 	top: 0;
-	bottom: 0;
-	z-index: 21
+	height: 100%;
+	z-index: 21;
+	font-family: "Segoe Print", "Segoe Script", "Comic Sans";
+	display: inline-block;
+	text-align: center;
+}
+.lightboxContainer{
+	opacity: 0;
+	margin: auto;
+	display: inline-block;
+	width: 250px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffb), color-stop(0.2, #ffc), color-stop(1, #ffa));
+	border-radius: 5px;
+	box-shadow: 0 0 35px #444;
+	margin: 50px auto 0 auto;
+	padding: 25px;
+}
+.lightboxContainer input{
+	padding: 5px 15px;
+	margin: 5px 0;
+	clear: both;
+	width: 220px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+	border: solid 1px #ccc;
+	border-radius: 2px;
+}
+.lightboxContainer input[type='submit']	{
+	margin-top: 25px;
+	width: 200px;
+	border-radius: 10px;
+	border-bottom-color: #bbb;
 }
