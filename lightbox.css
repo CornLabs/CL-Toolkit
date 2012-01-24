@@ -1,0 +1,59 @@
+.lightboxWrapper{
+	background: rgba(0, 0, 0, 0);
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 100%;
+	z-index: 21;
+	font-family: "Segoe Print", "Segoe Script", "Comic Sans";
+	display: inline-block;
+	text-align: center;
+}
+.lightboxContainer{
+	opacity: 0;
+	margin: auto;
+	display: inline-block;
+	width: 250px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffb), color-stop(0.2, #ffc), color-stop(1, #ffa));
+	border-radius: 5px;
+	box-shadow: 0 0 35px #444;
+	margin: 50px auto 0 auto;
+	padding: 25px;
+    position: relative;
+}
+.lightboxContainer input{
+	padding: 5px 15px;
+	margin: 5px 0;
+	clear: both;
+	width: 220px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #ddd));
+	border: solid 1px #ccc;
+	border-radius: 2px;
+}
+.lightboxContainer input[type='submit']	{
+	margin-top: 25px;
+	width: 200px;
+	border-radius: 10px;
+	border-bottom-color: #bbb;
+}
+.lightboxCloseButton {
+    background: #444;
+    border: solid 2px white;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 20px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    font-size: 12pt;
+    font-family: "Arial";
+    color: white;
+    box-shadow: 0 0 5px #444;
+    text-shadow: 0 1px 1px #000;
+    cursor: pointer;
+}
